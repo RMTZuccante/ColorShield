@@ -1,7 +1,8 @@
 #include "Color.h"
 
-void Color::begin(byte merror){
+void Color::begin(byte merror, byte mcolor){
   merr = merror;
+  mcol = mcolor;
   
   mirror = readIR();
   pinMode(S0, OUTPUT);
@@ -18,15 +19,16 @@ void Color::begin(byte merror){
 byte Color::read(){ //@return 0 se sotto non c'è niente, 1 se c'è uno specchio e 2 se è nero.
   byte color;
   unsigned short reflection = readIR();
+  byte R;
   if(reflection > mirror - merr && reflection < mirror + merr) color = 1;
   else {
     // Setting red filtered photodiodes to be read
     digitalWrite(S2,LOW);
     digitalWrite(S3,LOW);
     // Reading the output frequency
-    int R = pulseIn(sensorOut, LOW);
+    R = pulseIn(sensorOut, LOW);
 
-    color =  R < 15 ? 0 : 2;
+    color =  R < mcol ? 0 : 2;
   }
   return color;
 }

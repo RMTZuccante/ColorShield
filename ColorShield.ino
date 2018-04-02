@@ -12,7 +12,7 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
+  delay(10);
 }
 
 void requestEvent() {
@@ -22,5 +22,8 @@ void requestEvent() {
 
 void receiveEvent() {
   byte x = Wire.read();
-  if(x>=10) color.begin(x-10);
+  byte y = Wire.read();
+  if(x>=10) {
+    color.begin(x-10, y);
+  }
 }

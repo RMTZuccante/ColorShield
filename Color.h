@@ -3,20 +3,21 @@
 
 #include <Arduino.h>
 
-#define S0 8
-#define S1 9
-#define S2 10
-#define S3 11
-#define sensorOut 12
+#define S0 13
+#define S1 12
+#define S2 11
+#define S3 10
+#define sensorOut 17
 
 class Color {
 public:
-  void begin(byte merror);
+  void begin(byte merror, byte mcolor);
   byte read();
-private:
   unsigned short readIR();
+private:
   unsigned short mirror;
   byte merr;
+  byte mcol;
 };
 
 #endif
