@@ -12,10 +12,12 @@
 class Color {
 public:
   void begin(byte merror, byte mcolor);
+  byte read(byte data);
   byte read();
-  unsigned short readIR();
+  byte readIR();
+  byte readColor();
 private:
-  unsigned short mirror;
+  byte mirror;
   byte merr;
   byte mcol;
 };
