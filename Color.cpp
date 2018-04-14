@@ -1,6 +1,6 @@
 #include "Color.h"
 
-void Color::begin(byte merror, byte mcolor) {
+void Color::begin(uint8_t merror, uint8_t mcolor) {
   merr = merror;
   mcol = mcolor;
   mirror = readIR();
@@ -15,26 +15,26 @@ void Color::begin(byte merror, byte mcolor) {
   digitalWrite(S1, LOW);
 }
 
-byte Color::read(byte data) {
+uint8_t Color::read(uint8_t data) {
   switch (data) {
     case 0:
       return read();
     case 1:
       return readIR();
     case 2:
-      return readColor();
+      return readColor()/4;
     default:
       return -1;
   }
 }
 
 //@return 0 se sotto non c'è niente, 1 se c'è uno specchio e 2 se è nero.
-byte Color::read() {
-  byte reflection = readIR();
+uint8_t Color::read() {
+  uint16_t reflection = readIR();
   return (reflection > mirror - merr && reflection < mirror + merr) ? 1 : readColor() < mcol ? 0 : 2;
 }
 
-byte Color::readColor() {
+uint8_t Color::readColor() {
   // Setting red filtered photodiodes to be read
   digitalWrite(S2, LOW);
   digitalWrite(S3, LOW);
@@ -42,8 +42,8 @@ byte Color::readColor() {
   return pulseIn(sensorOut, LOW);
 }
 
-byte Color::readIR() {
-  byte out = analogRead(A0);
+uint16_t Color::readIR() {
+  uint16_t out = analogRead(A0);
   delay(5);
   out += analogRead(A1);
   return out >> 1;

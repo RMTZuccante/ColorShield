@@ -11,15 +11,15 @@
 
 class Color {
 public:
-  void begin(byte merror, byte mcolor);
-  byte read(byte data);
-  byte read();
-  byte readIR();
-  byte readColor();
+  void begin(uint8_t merror, uint8_t mcolor);
+  uint8_t read(uint8_t data);
+  uint8_t read();
+  uint16_t readIR();
+  uint8_t readColor();
 private:
-  byte mirror;
-  byte merr;
-  byte mcol;
+  uint16_t mirror;
+  uint8_t merr;
+  uint8_t mcol;
 };
 
 #endif

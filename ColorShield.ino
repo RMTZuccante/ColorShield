@@ -7,8 +7,9 @@ Color color;
 byte read;
 
 void requestEvent() {
-  Wire.write(color.read(read));
-  read = -1;
+  byte col = color.read(read);
+  Wire.write(col);
+  read = 255;
 }
 
 void receiveEvent() {
@@ -18,12 +19,12 @@ void receiveEvent() {
 }
 
 void setup() {
-  read = -1;
+  read = 255;
   Wire.begin(COLORADDRESS);
   Wire.onRequest(requestEvent);
   Wire.onReceive(receiveEvent);
 }
 
 void loop() {
-
+  
 }
